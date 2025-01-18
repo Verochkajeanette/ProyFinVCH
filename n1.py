@@ -42,6 +42,16 @@ def plot_so2(angle, title):
     ax.set_title(title)
     st.pyplot(fig)
 
+# Función para mostrar la matriz de rotación SO(2)
+def show_so2_matrix(angle):
+    radians = np.radians(angle)
+    rotation_matrix = np.array([
+        [np.cos(radians), -np.sin(radians)],
+        [np.sin(radians),  np.cos(radians)]
+    ])
+    st.subheader("Matriz de Rotación SO(2):")
+    st.write(rotation_matrix)
+
 if movement in ["Desviación radial", "Desviación cubital", "Flexión", "Extensión"]:
     st.header(f"Movimiento: {movement}")
     st.write(f"Límite (AAOS): {limits[movement][0]}° a {limits[movement][1]}°")
@@ -49,6 +59,7 @@ if movement in ["Desviación radial", "Desviación cubital", "Flexión", "Extens
     # Seleccionar el ángulo dentro de los límites
     angle = st.slider(f"Ángulo para {movement}", *limits[movement], value=limits[movement][0])
     plot_so2(angle, f"Movimiento: {movement}")
+    show_so2_matrix(angle)  # Mostrar la matriz de rotación
 
 elif movement == "Circunducción":
     st.header("Circunducción en \(\\mathbb{R}^2\)")
